@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Local development uses SQLite. For production, switch the provider to
+// "postgresql" and point DATABASE_URL at your hosted database (Neon, Supabase,
+// Vercel Postgres, RDS…). The model itself stays identical.
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Reservation {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String
+  city           String
+  experienceType String
+  guests         String
+  preferredDate  DateTime
+  notes          String?
+  status         String   @default("NEW") // NEW → CONTACTED → CONFIRMED → COMPLETED / CANCELLED
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([city])
+}

@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0a0907;
+  --color-coal: #100e0a;
+  --color-surface: #16130e;
+  --color-elevated: #1d1912;
+  --color-line: #2b251b;
+  --color-ivory: #f3edde;
+  --color-sand: #b3a78d;
+  --color-muted: #857c68;
+  --color-gold-100: #f7ecd2;
+  --color-gold-200: #eedcae;
+  --color-gold-300: #e3c98c;
+  --color-gold-400: #d6b46c;
+  --color-gold-500: #c9a45c;
+  --color-gold-600: #a5813f;
+  --color-gold-700: #7c5f2c;
+
+  --font-serif: var(--font-playfair), "Georgia", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-pulse-slow: pulse-slow 7s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-600);
+}
+
+/* Gradient gold text */
+@utility text-gold-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #f0e0b8 0%,
+    #d9b877 35%,
+    #a5813f 70%,
+    #e3c98c 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Card with gradient gold border */
+@utility card-frame {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    linear-gradient(
+        135deg,
+        rgba(201, 164, 92, 0.45),
+        rgba(201, 164, 92, 0.08) 40%,
+        rgba(201, 164, 92, 0.3)
+      )
+      border-box;
+}
+
+/* Film-grain noise overlay (apply to a relative parent) */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+}
+
+/* Architectural grid lines */
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(201, 164, 92, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 164, 92, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Date input dark scheme */
+input[type="date"] {
+  color-scheme: dark;
+}
+
