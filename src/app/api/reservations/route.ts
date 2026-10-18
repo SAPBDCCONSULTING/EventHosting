@@ -3,6 +3,31 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { SITE } from "@/lib/data";
 
+// Temporary deployment diagnostic — visit /api/reservations in the browser.
+// REMOVE this handler once the deployment is verified.
+export async function GET() {
+  const env = {
+    DATABASE_URL: Boolean(process.env.DATABASE_URL),
+    POSTGRES_URL: Boolean(process.env.POSTGRES_URL),
+    POSTGRES_PRISMA_URL: Boolean(process.env.POSTGRES_PRISMA_URL),
+  };
+
+  try {
+    const count = await prisma.reservation.count();
+    return NextResponse.json({ ok: true, env, reservations: count });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        ok: false,
+        env,
+        prismaError:
+          error instanceof Error ? error.message.slice(0, 500) : String(error),
+      },
+      { status: 500 }
+    );
+  }
+}
+
 const reservationSchema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(100),
   email: z.string().trim().toLowerCase().email("Invalid email").max(200),
