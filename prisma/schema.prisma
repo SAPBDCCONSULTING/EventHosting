@@ -2,11 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Local development uses SQLite. For production, switch the provider to
-// "postgresql" and point DATABASE_URL at your hosted database (Neon, Supabase,
-// Vercel Postgres, RDS…). The model itself stays identical.
+// Production database: Postgres (Neon). The same DATABASE_URL is used for
+// local development so dev and prod stay consistent.
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
