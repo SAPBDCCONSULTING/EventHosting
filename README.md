@@ -23,18 +23,14 @@ Reservations submitted through the booking form are validated with **zod** in
 (name, contact, city, experience type, guests, preferred date, notes, status,
 timestamps). A honeypot field silently drops basic spam bots.
 
-| Command             | Purpose                              |
-| ------------------- | ------------------------------------ |
-| `npm run db:push`   | Sync schema to the database          |
-| `npm run db:studio` | Open Prisma Studio to browse records |
+The project uses **Postgres (Neon)** for both local development and
+production — the same `DATABASE_URL` in `.env` is used locally, and Vercel's
+Neon integration provides it in production. If you ever rotate credentials or
+create a new database, update `DATABASE_URL` in both places and run
+`npx prisma db push` to sync the schema.
 
-### Switching to Postgres for production
-
-1. In `prisma/schema.prisma`, change `provider = "sqlite"` → `"postgresql"`.
-2. Set `DATABASE_URL` to your hosted Postgres URL (Neon, Supabase, Vercel
-   Postgres, RDS…).
-3. Run `npx prisma db push` (or wire up `prisma migrate` for versioned
-   migrations).
+> Note: Prisma's driver doesn't support `channel_binding=require` — keep the
+> connection string to `?connect_timeout=15&sslmode=require`.
 
 ## Deployment (Vercel)
 
