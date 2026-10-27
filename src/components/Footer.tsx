@@ -21,8 +21,8 @@ export default function Footer() {
             shape what happens next.
           </p>
           <p className="mt-6 font-serif text-lg italic text-gold-400/80">
-            &ldquo;Crafted for gatherings that matter.&rdquo;
-          </p>
+  {SITE.tagline}
+</p>
         </div>
 
         <div>

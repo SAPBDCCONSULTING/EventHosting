@@ -1,10 +1,13 @@
+
 export const SITE = {
-  name: "The Meridian",
-  phone: "+91 98100 00000",
+  name: "The Meridian Estate",
+  tagline: "Connecting People. Creating Memories.",
+  phone: "+91 96258 00012",
   email: "reserve@themeridian.in",
   address: "One Meridian Tower, Golf Course Road, Gurugram",
   cities: ["Gurugram", "Mumbai", "Bengaluru", "Dubai"],
 };
+
 
 export const MARQUEE_ITEMS = [
   "CXO Summits",
